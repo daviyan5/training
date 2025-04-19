@@ -22,7 +22,7 @@ Output: false
 
 class Solution {
     public:
-        bool hasDuplicate(vector<int>& nums) {
+        bool hasDuplicate(std::vector<int>& nums) {
             std::unordered_map<int, bool> visited;
             for (const auto &u: nums) {
                 if (visited.count(u)) {
