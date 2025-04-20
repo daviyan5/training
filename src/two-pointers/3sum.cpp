@@ -58,7 +58,7 @@ class Solution {
         std::vector<std::vector<int>> threeSum(std::vector<int>& nums) {
             std::sort(nums.begin(), nums.end());
 
-            size_t n = nums.size();
+            const size_t n = nums.size();
             std::vector<std::vector<int>> triplets;
             for (size_t i = 0; i < n; ++i) {
                 if (i > 0 && nums[i] == nums[i - 1]) {
