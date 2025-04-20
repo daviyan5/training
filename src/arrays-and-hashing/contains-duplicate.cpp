@@ -18,7 +18,6 @@ Output: false
 
 #include <vector>
 #include <unordered_map>
-#include <cstdint>
 
 class Solution {
     public:
