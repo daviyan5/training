@@ -1,9 +1,11 @@
 /*
 Longest Repeating Character Replacement
 
-You are given a string s consisting of only uppercase english characters and an integer k. You can choose up to k characters of the string and replace them with any other uppercase English character.
+You are given a string s consisting of only uppercase english characters and an integer k. You can
+choose up to k characters of the string and replace them with any other uppercase English character.
 
-After performing at most k replacements, return the length of the longest substring which contains only one distinct character.
+After performing at most k replacements, return the length of the longest substring which contains
+only one distinct character.
 
 Example 1:
 
@@ -27,31 +29,29 @@ Constraints:
 */
 #include <string>
 
-
 class Solution {
-    public:
-        int characterReplacement(std::string s, int k) {
-            int start = 0;
-            
-            int frequency[256] {};
-            int answer = 0;
+public:
+    int characterReplacement(std::string s, int k) {
+        int start = 0;
 
-            for (size_t i = 0; i < s.size(); ++i) {
-                frequency[s[i]]++;
+        int frequency[256]{};
+        int answer = 0;
 
-                int max_frequency = 0; 
-                for (size_t j = 0; j < 256; ++j) {
-                    max_frequency = std::max(frequency[j], max_frequency);
-                }
+        for (size_t i = 0; i < s.size(); ++i) {
+            frequency[s[i]]++;
 
-                if ((i - start + 1) - max_frequency > k) {
-                    frequency[s[start]]--;
-                    start++;
-                }
-            
-                answer = std::max(answer, static_cast<int>(i - start + 1));
+            int max_frequency = 0;
+            for (size_t j = 0; j < 256; ++j) {
+                max_frequency = std::max(frequency[j], max_frequency);
             }
-            return answer;
+
+            if ((i - start + 1) - max_frequency > k) {
+                frequency[s[start]]--;
+                start++;
+            }
+
+            answer = std::max(answer, static_cast<int>(i - start + 1));
         }
+        return answer;
+    }
 };
-    

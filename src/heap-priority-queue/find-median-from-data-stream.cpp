@@ -1,7 +1,8 @@
 /*
 Find Median From Data Stream
 
-The median is the middle value in a sorted list of integers. For lists of even length, there is no middle value, so the median is the mean of the two middle values.
+The median is the middle value in a sorted list of integers. For lists of even length, there is no
+middle value, so the median is the mean of the two middle values.
 
 For example:
 
@@ -17,7 +18,8 @@ Implement the MedianFinder class:
 Example 1:
 
 Input:
-["MedianFinder", "addNum", "1", "findMedian", "addNum", "3" "findMedian", "addNum", "2", "findMedian"]
+["MedianFinder", "addNum", "1", "findMedian", "addNum", "3" "findMedian", "addNum", "2",
+"findMedian"]
 
 Output:
 [null, null, 1.0, null, 2.0, null, 2.0]
@@ -39,40 +41,42 @@ Constraints:
 
 */
 
+#include <functional>
 #include <queue>
 #include <vector>
-#include <functional>
 
 class MedianFinder {
-    public:
-        MedianFinder() { }
-        
-        void addNum(int num) {
-            if (max_heap.empty() || num <= max_heap.top()) {
-                max_heap.push(num);
-            } else {
-                min_heap.push(num);
-            }
-    
-            if (max_heap.size() > min_heap.size() + 1) {
-                int top = max_heap.top();
-                max_heap.pop();
-                min_heap.push(top);
-            } else if (min_heap.size() > max_heap.size()) {
-                int top = min_heap.top();
-                min_heap.pop();
-                max_heap.push(top);
-            }
+public:
+    MedianFinder() {
+    }
+
+    void addNum(int num) {
+        if (max_heap.empty() || num <= max_heap.top()) {
+            max_heap.push(num);
+        } else {
+            min_heap.push(num);
         }
-        
-        double findMedian() {
-            if ((min_heap.size() + max_heap.size()) % 2 == 0) {
-                return static_cast<double>(min_heap.top() + max_heap.top()) / 2.0;
-            } else {
-                return max_heap.top();
-            }
+
+        if (max_heap.size() > min_heap.size() + 1) {
+            int top = max_heap.top();
+            max_heap.pop();
+            min_heap.push(top);
+        } else if (min_heap.size() > max_heap.size()) {
+            int top = min_heap.top();
+            min_heap.pop();
+            max_heap.push(top);
         }
-    private:
-        std::priority_queue<int> max_heap;
-        std::priority_queue<int, std::vector<int>, std::greater<int>> min_heap;
-    };
+    }
+
+    double findMedian() {
+        if ((min_heap.size() + max_heap.size()) % 2 == 0) {
+            return static_cast<double>(min_heap.top() + max_heap.top()) / 2.0;
+        } else {
+            return max_heap.top();
+        }
+    }
+
+private:
+    std::priority_queue<int> max_heap;
+    std::priority_queue<int, std::vector<int>, std::greater<int>> min_heap;
+};

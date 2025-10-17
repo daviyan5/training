@@ -3,7 +3,8 @@ Container With Most Water
 
 You are given an integer array heights where heights[i] represents the height of the ithith bar.
 
-You may choose any two bars to form a container. Return the maximum amount of water a container can store.
+You may choose any two bars to form a container. Return the maximum amount of water a container can
+store.
 
 Example 1:
 
@@ -26,24 +27,23 @@ Constraints:
 #include <vector>
 
 class Solution {
-    public:
-        int maxArea(std::vector<int>& heights) {
-            const size_t n = heights.size();
-            size_t start = 0;
-            size_t end   = n - 1;
+public:
+    int maxArea(std::vector<int>& heights) {
+        const size_t n = heights.size();
+        size_t start = 0;
+        size_t end = n - 1;
 
-            int area = 0;
-            while (start < end) {
-                int current_area = std::min(heights[start], heights[end]) * (end - start);
-                area = std::max(area, current_area);
-                
-                if (heights[start] < heights[end]) {
-                    start++;
-                } else {
-                    end--;
-                }
+        int area = 0;
+        while (start < end) {
+            int current_area = std::min(heights[start], heights[end]) * (end - start);
+            area = std::max(area, current_area);
+
+            if (heights[start] < heights[end]) {
+                start++;
+            } else {
+                end--;
             }
-            return area;
         }
+        return area;
+    }
 };
-    

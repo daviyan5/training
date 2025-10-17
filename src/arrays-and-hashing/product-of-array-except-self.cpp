@@ -1,7 +1,8 @@
 /*
 Products of Array Except Self
 
-Given an integer array nums, return an array output where output[i] is the product of all the elements of nums except nums[i].
+Given an integer array nums, return an array output where output[i] is the product of all the
+elements of nums except nums[i].
 
 Each product is guaranteed to fit in a 32-bit integer.
 
@@ -29,23 +30,22 @@ Constraints:
 #include <vector>
 
 class Solution {
-    public:
-        std::vector<int> productExceptSelf(std::vector<int>& nums) {
-            // To solve it without division:
-            // ans[i] = pref[i] * suff[i]
-            size_t n { nums.size() };
-            std::vector<int> pref(n, 1), suff(n, 1);
-            for (size_t i = 0; i < n - 1; ++i) {
-                pref[i + 1] = nums[i] * pref[i];
-            }
-            for (size_t i = n - 1; i > 0; --i) {
-                suff[i - 1] = nums[i] * suff[i];
-            }
-            std::vector<int> ans(n, 0);
-            for (size_t i = 0; i < n; ++i) {
-                ans[i] = pref[i] * suff[i];
-            }
-            return ans;
+public:
+    std::vector<int> productExceptSelf(std::vector<int>& nums) {
+        // To solve it without division:
+        // ans[i] = pref[i] * suff[i]
+        size_t n{nums.size()};
+        std::vector<int> pref(n, 1), suff(n, 1);
+        for (size_t i = 0; i < n - 1; ++i) {
+            pref[i + 1] = nums[i] * pref[i];
         }
+        for (size_t i = n - 1; i > 0; --i) {
+            suff[i - 1] = nums[i] * suff[i];
+        }
+        std::vector<int> ans(n, 0);
+        for (size_t i = 0; i < n; ++i) {
+            ans[i] = pref[i] * suff[i];
+        }
+        return ans;
+    }
 };
-    

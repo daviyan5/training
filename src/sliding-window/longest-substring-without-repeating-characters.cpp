@@ -25,26 +25,25 @@ Constraints:
     s may consist of printable ASCII characters.
 
 */
-#include <string>
 #include <bitset>
+#include <string>
 
 class Solution {
-    public:
-        int lengthOfLongestSubstring(std::string &s) {
-            int answer = 0;
-            int start = 0;
-            std::bitset<256> seen;
-            
-            for (size_t i = 0; i < s.size(); ++i) {
-                while (seen[s[i]]) {
-                    seen[s[start]] = false;
-                    start++;
-                }
-                seen[s[i]] = true;
-                answer = std::max(answer, static_cast<int>(i - start + 1));
+public:
+    int lengthOfLongestSubstring(std::string &s) {
+        int answer = 0;
+        int start = 0;
+        std::bitset<256> seen;
+
+        for (size_t i = 0; i < s.size(); ++i) {
+            while (seen[s[i]]) {
+                seen[s[start]] = false;
+                start++;
             }
-            
-            return answer;
+            seen[s[i]] = true;
+            answer = std::max(answer, static_cast<int>(i - start + 1));
         }
+
+        return answer;
+    }
 };
-    

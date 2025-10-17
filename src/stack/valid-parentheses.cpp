@@ -37,31 +37,29 @@ Constraints:
 
 */
 
-#include <string>
 #include <stack>
+#include <string>
 
 class Solution {
-    public:
-        bool isValid(std::string s) {
-            std::stack<char> st;
-            
-            auto is_closing = [](const char c) {
-                return c == ')' || c == ']' || c == '}';
-            };
+public:
+    bool isValid(std::string s) {
+        std::stack<char> st;
 
-            auto is_opening = [] (const char o, const char c) {
-                return c == ')' ? o == '(' : c == ']' ? o == '[' : c == '}' ? o == '{' : false;
-            };
+        auto is_closing = [](const char c) { return c == ')' || c == ']' || c == '}'; };
 
-            for (const char &c : s) {
-                if (is_closing(c) && (st.empty() || !is_opening(st.top(), c))) {
-                    return false;
-                } else if (is_closing(c)) {
-                    st.pop();
-                } else {
-                    st.push(c);
-                }
+        auto is_opening = [](const char o, const char c) {
+            return c == ')' ? o == '(' : c == ']' ? o == '[' : c == '}' ? o == '{' : false;
+        };
+
+        for (const char &c : s) {
+            if (is_closing(c) && (st.empty() || !is_opening(st.top(), c))) {
+                return false;
+            } else if (is_closing(c)) {
+                st.pop();
+            } else {
+                st.push(c);
             }
-            return st.empty();
         }
-};    
+        return st.empty();
+    }
+};

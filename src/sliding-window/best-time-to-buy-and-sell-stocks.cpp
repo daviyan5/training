@@ -5,7 +5,8 @@ You are given an integer array prices where prices[i] is the price of NeetCoin o
 
 You may choose a single day to buy one NeetCoin and choose a different day in the future to sell it.
 
-Return the maximum profit you can achieve. You may choose to not make any transactions, in which case the profit would be 0.
+Return the maximum profit you can achieve. You may choose to not make any transactions, in which
+case the profit would be 0.
 
 Example 1:
 
@@ -32,29 +33,29 @@ Constraints:
 #include <vector>
 
 class Solution {
-    public:
-        int maxProfit(std::vector<int>& prices) {
-            size_t n = prices.size();
-            size_t start = 0, end = 1;
+public:
+    int maxProfit(std::vector<int>& prices) {
+        size_t n = prices.size();
+        size_t start = 0, end = 1;
 
-            int profit = 0;
-            while (end < n) {
-                int max_sell = 0;
-                for (size_t i = end; i < n; ++i) {
-                    if (prices[i] > max_sell) {
-                        max_sell = prices[i];
-                        end = i;
-                    }
+        int profit = 0;
+        while (end < n) {
+            int max_sell = 0;
+            for (size_t i = end; i < n; ++i) {
+                if (prices[i] > max_sell) {
+                    max_sell = prices[i];
+                    end = i;
                 }
-                
-                for (size_t i = start; i < end; ++i) {
-                    if (prices[i] < prices[start]) {
-                        start = i;
-                    }
-                }
-                profit = std::max(max_sell - prices[start], profit);
-                end += 1;
             }
-            return profit;
+
+            for (size_t i = start; i < end; ++i) {
+                if (prices[i] < prices[start]) {
+                    start = i;
+                }
+            }
+            profit = std::max(max_sell - prices[start], profit);
+            end += 1;
         }
+        return profit;
+    }
 };

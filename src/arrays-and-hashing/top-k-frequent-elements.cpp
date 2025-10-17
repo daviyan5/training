@@ -26,45 +26,42 @@ Constraints:
     1 <= k <= number of distinct elements in nums.
 
 */
-#include <cstdint>
-
 #include <algorithm>
-
-#include <vector>
+#include <cstdint>
 #include <unordered_map>
+#include <vector>
 
 class Solution {
-    public:
-        std::vector<int> topKFrequent(std::vector<int>& nums, int k) {
-            std::unordered_map<int, uint32_t> frequency;
-            uint32_t max_frequency = 0;
-            for (const int &u: nums) {
-                frequency[u] += 1;
-                max_frequency = std::max(max_frequency, frequency[u]);
-            }
-            std::vector<std::vector<int>> buckets(max_frequency, std::vector<int>());
-            for (const auto &[val, freq] : frequency) {
-                if (freq == 0) {
-                    continue;
-                }
-                buckets[freq - 1].push_back(val);
-            }
-            int next_bucket = 0;
-            std::vector<int> ans;
-
-            for (size_t i = buckets.size() - 1; i >= 0; --i) {
-                std::vector<int> &bucket { buckets[i] };
-                if (bucket.size() > 0) {
-                    ans.insert(ans.end(), bucket.begin(), bucket.end());
-                    while (ans.size() > k) {
-                        ans.pop_back();
-                    }
-                    if (ans.size() == k) {
-                        break;
-                    }
-                }
-            }
-            return ans;
+public:
+    std::vector<int> topKFrequent(std::vector<int> &nums, int k) {
+        std::unordered_map<int, uint32_t> frequency;
+        uint32_t max_frequency = 0;
+        for (const int &u : nums) {
+            frequency[u] += 1;
+            max_frequency = std::max(max_frequency, frequency[u]);
         }
+        std::vector<std::vector<int>> buckets(max_frequency, std::vector<int>());
+        for (const auto &[val, freq] : frequency) {
+            if (freq == 0) {
+                continue;
+            }
+            buckets[freq - 1].push_back(val);
+        }
+        int next_bucket = 0;
+        std::vector<int> ans;
+
+        for (size_t i = buckets.size() - 1; i >= 0; --i) {
+            std::vector<int> &bucket{buckets[i]};
+            if (bucket.size() > 0) {
+                ans.insert(ans.end(), bucket.begin(), bucket.end());
+                while (ans.size() > k) {
+                    ans.pop_back();
+                }
+                if (ans.size() == k) {
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
 };
-    

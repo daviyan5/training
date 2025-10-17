@@ -1,7 +1,8 @@
 /*
 Two Sum
 
-Given an array of integers nums and an integer target, return the indices i and j such that nums[i] + nums[j] == target and i != j.
+Given an array of integers nums and an integer target, return the indices i and j such that nums[i]
++ nums[j] == target and i != j.
 
 You may assume that every input has exactly one pair of indices i and j that satisfy the condition.
 
@@ -9,7 +10,7 @@ Return the answer with the smaller index first.
 
 Example 1:
 
-Input: 
+Input:
 nums = [3,4,5,6], target = 7
 
 Output: [0,1]
@@ -35,22 +36,22 @@ Constraints:
     -10,000,000 <= target <= 10,000,000
 
 */
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 class Solution {
-    public:
-        std::vector<int> twoSum(std::vector<int>& nums, int target) {
-            std::unordered_map<int, int> remainders;
-            for (size_t i = 0; i < nums.size(); ++i) {
-                remainders[nums[i]] = i;
-            }
-            for (size_t i = 0; i < nums.size(); ++i) { 
-                int pair = target - nums[i];
-                if (remainders.count(pair) and remainders[pair] != i) {
-                    return {static_cast<int>(i), remainders[target - nums[i]]};
-                }
-            }
-            return {};
+public:
+    std::vector<int> twoSum(std::vector<int>& nums, int target) {
+        std::unordered_map<int, int> remainders;
+        for (size_t i = 0; i < nums.size(); ++i) {
+            remainders[nums[i]] = i;
         }
+        for (size_t i = 0; i < nums.size(); ++i) {
+            int pair = target - nums[i];
+            if (remainders.count(pair) and remainders[pair] != i) {
+                return {static_cast<int>(i), remainders[target - nums[i]]};
+            }
+        }
+        return {};
+    }
 };

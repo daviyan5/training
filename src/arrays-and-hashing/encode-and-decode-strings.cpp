@@ -1,7 +1,8 @@
 /*
 Encode and Decode Strings
 
-Design an algorithm to encode a list of strings to a single string. The encoded string is then decoded back to the original list of strings.
+Design an algorithm to encode a list of strings to a single string. The encoded string is then
+decoded back to the original list of strings.
 
 Please implement encode and decode
 
@@ -25,35 +26,33 @@ Constraints:
 
 */
 #include <cstdint>
-
+#include <string>
 #include <unordered_map>
 #include <vector>
-#include <string>
 
-
-// The intended method was to make it so that the "encoded" key had all the info needed to reconstruct the vector. 
-// I tought it would be more interesting to make a hash function and use a map to reconstruct the strings
+// The intended method was to make it so that the "encoded" key had all the info needed to
+// reconstruct the vector. I tought it would be more interesting to make a hash function and use a
+// map to reconstruct the strings
 class Solution {
-    public:
-    
-        std::string encode(std::vector<std::string>& strs) {
-            uint64_t hash = 0;
-            int pos = 0;
-            for (const auto &s : strs) {
-                for (const char &c : s) {
-                    hash ^= (static_cast<uint64_t>(c) << pos * 8);
-                    pos = (pos + 1) % 8;
-                }
+public:
+    std::string encode(std::vector<std::string> &strs) {
+        uint64_t hash = 0;
+        int pos = 0;
+        for (const auto &s : strs) {
+            for (const char &c : s) {
+                hash ^= (static_cast<uint64_t>(c) << pos * 8);
+                pos = (pos + 1) % 8;
             }
-            m_hash_map[hash] = strs;
-            return std::to_string(hash);
         }
-    
-        std::vector<std::string> decode(std::string &s) {
-            uint64_t hash { std::stoull(s) };
-            return m_hash_map[hash];
-        }
-    private:
-        std::unordered_map<uint64_t, std::vector<std::string>> m_hash_map;
+        m_hash_map[hash] = strs;
+        return std::to_string(hash);
+    }
+
+    std::vector<std::string> decode(std::string &s) {
+        uint64_t hash{std::stoull(s)};
+        return m_hash_map[hash];
+    }
+
+private:
+    std::unordered_map<uint64_t, std::vector<std::string>> m_hash_map;
 };
-    
